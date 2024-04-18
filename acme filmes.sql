@@ -161,6 +161,16 @@ CREATE TABLE IF NOT EXISTS `tbl_usuario` (
   `senha` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`));
 
+-- -----------------------------------------------------
+-- Table `tbl_funcionario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tbl_funcionario` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(45) NOT NULL,
+  `telefone` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------
 -- Table `tbl_filmes_salvos`
@@ -415,6 +425,18 @@ insert into tbl_usuario (
                                         '1234iv'
 );
 
+insert into tbl_funcionario (
+                                        nome,
+                                        email,
+                                        senha,
+                                        telefone
+							 ) values (
+                                        'Giovanna Belo',
+                                        'giovbelolo12@gmail.com',
+                                        'idk12',
+                                        '11 99615-6431'
+);
+
 insert into tbl_filmes_salvos (
                                      filme_id,
                                      usuario_id
@@ -451,3 +473,5 @@ update tbl_filme set nome = 'Frozen' where id = 1;
 select * from  tbl_filme;
 
 update tbl_filme set nome = 'Alice no país das maravilhas' where id = 1; */
+
+update tbl_usuario set nome = tbl_usuario.nome, email = tbl_usuario.email, senha = tbl_usuario.senha where id = 2
