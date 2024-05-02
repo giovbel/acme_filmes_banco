@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `tbl_filme` (
   `data_lancamento` DATE NOT NULL,
   `data_relancamento` DATE NULL,
   `foto_capa` VARCHAR(200) NOT NULL,
+  `foto_fundo` VARCHAR(200) NOT NULL,
   `valor_unitario` FLOAT NULL,
   `classificacao_id` INT NOT NULL,
   `genero_id` INT NOT NULL,
@@ -315,17 +316,18 @@ insert into tbl_filme (
                                             data_lancamento,
                                             data_relancamento,
                                             foto_capa,
+                                            foto_fundo,
                                             valor_unitario,
 											classificacao_id,
                                             genero_id,
                                             nacionalidade_id
                                     ) values(
                                            'Alice no país das maravilhas',
-                                           'Alice (Mia Wasikowska) é uma jovem de 17 anos que passa a seguir um coelho branco apressado, que sempre olha no relógio.
-                                            Ela entra em um buraco que a leva ao País das Maravilhas, um local onde esteve há dez anos apesar de nada se lembrar dele.',
+                                           "Alice (Mia Wasikowska) é uma jovem de 17 anos que passa a seguir um coelho branco apressado, que sempre olha no relógio.Ela entra em um buraco que a leva ao País das Maravilhas, um local onde esteve há dez anos apesar de nada se lembrar dele.",
                                            '02:00:00',
                                            '2010-02-25',
                                            null,
+                                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0iohZHNevOaKw-6m7-_XZFBkIj8vahyK_D7oM8lJ&s',
                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0iohZHNevOaKw-6m7-_XZFBkIj8vahyK_D7oM8lJ&s',
                                            '20',
                                            '3',
@@ -333,13 +335,13 @@ insert into tbl_filme (
                                            '2'
 										),
                                         (
-                                           "Frankewennie",  
-                                           "O curta-metragem Frankenweenie, conta a história do jovem Victor Frankenstein, um garoto inteligente e criativo que gosta de ficção científica e tem como melhor amigo o seu cachorro Sparky, 
-                                            com quem faz filmes amadores para mostrar aos seus pais e amigos.",
+                                           'Frankewennie',  
+                                           "O curta-metragem Frankenweenie, conta a história do jovem Victor Frankenstein, um garoto inteligente e criativo que gosta de ficção científica e tem como melhor amigo o seu cachorro Sparky, com quem faz filmes amadores para mostrar aos seus pais e amigos.",
                                            '01:27:00',
                                            '2012-11-02', 
                                             null,
-                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0iohZHNevOaKw-6m7-_XZFBkIj8vahyK_D7oM8lJ&s,', 
+                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0iohZHNevOaKw-6m7-_XZFBkIj8vahyK_D7oM8lJ&s,',
+                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0iohZHNevOaKw-6m7-_XZFBkIj8vahyK_D7oM8lJ&s',
                                             '40.00',
                                             '2',
                                             '5',
@@ -445,6 +447,7 @@ insert into tbl_filmes_salvos (
                                      1
 );
 
+
 select tbl_filme.nome as nome, tbl_filme.sinopse as sinopse, tbl_filme.duracao as duracao, tbl_filme.data_lancamento as data_lancamento, 
 tbl_filme.data_relancamento as data_relancamento, tbl_filme.foto_capa as foto_capa, tbl_filme.valor_unitario as valor_unitario,
 tbl_nacionalidade.gentilico as nacionalidade, tbl_classificacao.nome as classificacao, tbl_genero.nome as genero from tbl_filme 
@@ -453,7 +456,7 @@ join tbl_classificacao on tbl_filme.classificacao_id = tbl_classificacao.id
 join tbl_genero on tbl_filme.genero_id = tbl_genero.id;
 
 
-
+select * from tbl_ator_nacionalidade
 /*show tables;
 
 desc tbl_filme;
@@ -474,4 +477,8 @@ select * from  tbl_filme;
 
 update tbl_filme set nome = 'Alice no país das maravilhas' where id = 1; */
 
-update tbl_usuario set nome = tbl_usuario.nome, email = tbl_usuario.email, senha = tbl_usuario.senha where id = 2
+update tbl_usuario set nome = tbl_usuario.nome, email = tbl_usuario.email, senha = tbl_usuario.senha where id = 2;
+
+select tbl_nacionalidade.id, tbl_nacionalidade.gentilico, tbl_nacionalidade.sigla, tbl_nacionalidade.bandeira from tbl_nacionalidade 
+inner join tbl_ator_nacionalidade on tbl_nacionalidade.id=tbl_ator_nacionalidade.id 
+inner join tbl_ator on tbl_ator_nacionalidade.ator_id= tbl_ator.id where tbl_ator.id = 1
